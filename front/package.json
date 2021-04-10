@@ -1,0 +1,49 @@
+{
+  "name": "front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack serve --env development",
+    "build": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Baek",
+  "license": "MIT",
+  "dependencies": {
+    "@emotion/babel-plugin": "^11.3.0",
+    "@emotion/react": "^11.1.5",
+    "@emotion/styled": "^11.3.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@types/webpack-dev-server": "^3.11.3",
+    "fork-ts-checker-webpack-plugin": "^6.2.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.2",
+    "react-refresh": "^0.9.0",
+    "react-router-dom": "^5.2.0",
+    "swr": "^0.5.5",
+    "typescript": "^4.2.3",
+    "webpack-cli": "^4.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.0",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.13.13",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/node": "^14.14.37",
+    "@types/webpack": "^5.28.0",
+    "babel-loader": "^8.2.2",
+    "caniuse-lite": "^1.0.30001208",
+    "css-loader": "^5.2.0",
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1",
+    "style-loader": "^2.0.0",
+    "ts-node": "^9.1.1",
+    "webpack": "^5.31.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
