@@ -42,7 +42,7 @@ function Login() {
 
   // 정보가 들어있으면(로그인 성공 시) 채널 페이지로 리다이렉트
   if (data) {
-    return <Redirect to="/workspace/channel" />;
+    return <Redirect to="/workspace/sleact/channel/일반" />;
   }
 
   return (
