@@ -10,7 +10,7 @@ function Login() {
   // fetcher는 주소를 넘겨주는 역할. 어떻게 처리할지 구현해야 함
   // mutate는 서버에 요청을 보내지 않고 기존에 가지고 있던 데이터를 가지고 수정
   // revalidate는 서버에 요청을 보내 데이터 저장
-  const { data, error, revalidate, mutate } = useSWR('http://localhost:3095/api/users', fetcher, {
+  const { data, error, revalidate, mutate } = useSWR('/api/users', fetcher, {
     dedupingInterval: 100000, // 캐시의 유지기간. 이 기간 내에는  요청을 보내지 않고 캐시에서 불러옴.
   });
   const [loginError, setLoginError] = useState(false);
@@ -22,7 +22,7 @@ function Login() {
       e.preventDefault();
       setLoginError(false);
       axios
-        .post('http://localhost:3095/api/users/login', { email, password }, { withCredentials: true })
+        .post('/api/users/login', { email, password }, { withCredentials: true })
         .then((res) => {
           // 두번째 매개변수 shouldRevalidate가 true면 Optimistic UI.
           // 실제로 요청을 보내기도 전에 사용자에게는 요청이 성공한 것 처럼 보여주게 함
