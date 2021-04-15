@@ -1,6 +1,5 @@
 import { CollapseButton } from '@components/DMList/styles';
 import useSocket from '@hooks/useSocket';
-// import useSocket from '@hooks/useSocket';
 import { IUser, IUserWithOnline } from '@typings/db';
 import fetcher from '@utils/fetcher';
 import React, { FC, useCallback, useEffect, useState } from 'react';
@@ -18,7 +17,6 @@ const DMList: FC = () => {
     fetcher,
   );
   const [channelCollapse, setChannelCollapse] = useState(false);
-  const [countList, setCountList] = useState<{ [key: string]: number }>({});
   const [onlineList, setOnlineList] = useState<number[]>([]);
   const [socket] = useSocket(workspace);
 
