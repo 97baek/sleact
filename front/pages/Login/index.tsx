@@ -27,7 +27,8 @@ function Login() {
         .then((res) => {
           // 두번째 매개변수 shouldRevalidate가 true면 Optimistic UI.
           // 실제로 요청을 보내기도 전에 사용자에게는 요청이 성공한 것 처럼 보여주게 함
-          mutate(res.data, false);
+          // mutate(res.data, false);
+          revalidate();
         })
         .catch((error) => {
           setLoginError(error.response?.data?.statusCode === 401);
