@@ -16,6 +16,7 @@ function Login() {
   const [loginError, setLoginError] = useState(false);
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
+  // console.log(email, password);
 
   const onSubmit = useCallback(
     (e) => {

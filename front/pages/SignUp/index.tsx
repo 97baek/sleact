@@ -13,14 +13,14 @@ function SignUp() {
   const [nickname, onChangeNickname] = useInput('');
   const [password, , setPassword] = useInput('');
   const [passwordCheck, , setPasswordCheck] = useInput('');
-  const [mismatchError, setMismatchError] = useInput(false);
-  const [signUpError, setSignUpError] = useInput('');
-  const [signUpSuccess, setSignUpSuccess] = useInput(false);
+  const [mismatchError, setMismatchError] = useState(false);
+  const [signUpError, setSignUpError] = useState(false);
+  const [signUpSuccess, setSignUpSuccess] = useState(false);
 
   const onChangePassword = useCallback(
     (e) => {
       setPassword(e.target.value);
-      setMismatchError(e.target.value !== passwordCheck);
+      setMismatchError(passwordCheck !== e.target.value);
     },
     [passwordCheck],
   );
@@ -28,7 +28,7 @@ function SignUp() {
   const onChangePasswordCheck = useCallback(
     (e) => {
       setPasswordCheck(e.target.value);
-      setMismatchError(e.target.value !== password);
+      setMismatchError(password !== e.target.value);
     },
     [password],
   );
@@ -36,29 +36,23 @@ function SignUp() {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      console.log(email, nickname, password, passwordCheck);
-      setSignUpError(''); // 비동기 요청시엔 초기화 해주는 것이 좋음
-      setSignUpSuccess(false);
-      if (!mismatchError && nickname) {
-        console.log('서버로 회원가입하기');
+      if (!nickname || !nickname.trim()) {
+        return;
+      }
+      if (!mismatchError) {
+        setSignUpError(false);
+        setSignUpSuccess(false);
         axios
-          .post('/api/users', {
-            email,
-            nickname,
-            password,
-          })
-          .then((res) => {
-            console.log(res);
+          .post('/api/users', { email, nickname, password })
+          .then(() => {
             setSignUpSuccess(true);
           })
-          .catch((err) => {
-            console.log(err.response);
-            setSignUpError(err.response.data);
-          })
-          .finally(() => {});
+          .catch((error) => {
+            setSignUpError(error.response?.data?.statusCode === 403);
+          });
       }
     },
-    [email, nickname, password, passwordCheck, mismatchError],
+    [email, nickname, password, mismatchError],
   );
 
   // 로딩화면 처리
@@ -67,7 +61,7 @@ function SignUp() {
   }
 
   if (data) {
-    return <Redirect to="/workspace/sleact/channel/일반" />;
+    return <Redirect to="/workspace/sleact" />;
   }
 
   // const [form, setForm] = useState({
@@ -124,21 +118,21 @@ function SignUp() {
             <Input
               type="password"
               id="password-check"
-              name="passwordCheck"
+              name="password-check"
               value={passwordCheck}
               onChange={onChangePasswordCheck}
             />
           </div>
           {mismatchError && <Error>비밀번호가 일치하지 않습니다.</Error>}
           {!nickname && <Error>닉네임을 입력해주세요.</Error>}
-          {signUpError && <Error>{signUpError}</Error>}
+          {signUpError && <Error>이미 가입된 이메일입니다.</Error>}
           {signUpSuccess && <Success>회원가입되었습니다! 로그인해주세요.</Success>}
         </Label>
         <Button type="submit">회원가입</Button>
       </Form>
       <LinkContainer>
         이미 회원이신가요?&nbsp;
-        <Link to="/login">로그인 하러가기</Link>
+        <a href="/login">로그인 하러가기</a>
       </LinkContainer>
     </div>
   );
