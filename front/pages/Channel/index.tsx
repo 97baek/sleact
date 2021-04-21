@@ -7,6 +7,7 @@ import useSWR, { useSWRInfinite } from 'swr';
 import fetcher from '@utils/fetcher';
 import { useParams } from 'react-router';
 import { IChannel, IChat } from '@typings/db';
+import ChatList from '@components/ChatList';
 
 const Channel = () => {
   const [chat, onChangeChat, setChat] = useInput('');
@@ -36,6 +37,7 @@ const Channel = () => {
   return (
     <Container>
       <Header>채널</Header>
+      {/* <ChatList /> */}
       <ChatBox chat={chat} onChangeChat={onChangeChat} onSubmitForm={onSubmitForm} />
     </Container>
   );
