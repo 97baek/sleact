@@ -82,13 +82,7 @@ const DirectMessage = () => {
       <Header>
         <img src={gravatar.url(userData.email, { s: '24px', d: 'retro' })} alt={userData.nickname} />
       </Header>
-      <ChatList
-        chatSections={chatSections}
-        ref={scrollbarRef}
-        setSize={setSize}
-        isEmpty={isEmpty}
-        isReachingEnd={isReachingEnd}
-      />
+      <ChatList chatSections={chatSections} ref={scrollbarRef} setSize={setSize} isReachingEnd={isReachingEnd} />
       <ChatBox chat={chat} onChangeChat={onChangeChat} onSubmitForm={onSubmitForm} />
     </Container>
   );

@@ -1,8 +1,11 @@
 {
   "dependencies": {
+    "@types/react-custom-scrollbars": "^4.0.7",
     "@types/react-mentions": "^4.1.0",
     "axios": "^0.21.1",
+    "react-custom-scrollbars": "^4.2.1",
     "react-mentions": "^4.1.1",
-    "react-router": "^5.2.0"
+    "react-router": "^5.2.0",
+    "regexify-string": "^1.0.5"
   }
 }
