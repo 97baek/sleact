@@ -1,20 +1,34 @@
 import Chat from '@components/Chat';
 import { IDM } from '@typings/db';
-import React, { useCallback, useRef, VFC } from 'react';
+import React, { useCallback, forwardRef } from 'react';
 import { ChatZone, Section, StickyHeader } from './styles';
-import { Scrollbars } from 'react-custom-scrollbars-2';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 interface Props {
   chatSections: { [key: string]: IDM[] };
+  setSize: (f: (size: number) => number) => Promise<IDM[][] | undefined>;
+  isEmpty: boolean;
+  isReachingEnd: boolean;
 }
 
-const ChatList: VFC<Props> = ({ chatSections }) => {
-  const scrollbarRef = useRef(null);
-  const onScroll = useCallback(() => {}, []);
+const ChatList = forwardRef<Scrollbars, Props>(({ chatSections, setSize, isEmpty, isReachingEnd }, ref) => {
+  const onScroll = useCallback(
+    (values) => {
+      // 맨 위에 도달 시
+      if (values.scrollTop === 0 && !isReachingEnd) {
+        // 페이지(사이즈) 하나 추가
+        console.log('페이지 가장 위');
+        setSize((prevSize) => prevSize + 1).then(() => {
+          // 스크롤 위치 유지
+        });
+      }
+    },
+    [isReachingEnd, setSize],
+  );
 
   return (
     <ChatZone>
-      <Scrollbars autoHide ref={scrollbarRef} onScrollFrame={onScroll}>
+      <Scrollbars autoHide ref={ref} onScrollFrame={onScroll}>
         {Object.entries(chatSections).map(([date, chats]) => {
           return (
             <Section>
@@ -30,6 +44,6 @@ const ChatList: VFC<Props> = ({ chatSections }) => {
       </Scrollbars>
     </ChatZone>
   );
-};
+});
 
 export default ChatList;
