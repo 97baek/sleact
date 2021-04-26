@@ -18,7 +18,7 @@ const DirectMessage = () => {
   const { data: myData } = useSWR(`/api/users`, fetcher);
   // useSWRInfinite는 함수를 선언해줘야 함. index는 페이지 수, setSize는 페이지 수 바꿔주는 역할
   const { data: chatData, mutate: mutateChat, revalidate, setSize } = useSWRInfinite<IDM[]>(
-    (index) => `/api/workspaces/${workspace}/dms/${id}/chats?perPage=20&page=1`,
+    (index) => `/api/workspaces/${workspace}/dms/${id}/chats?perPage=20&page=${index + 1}`,
     fetcher,
   );
 
